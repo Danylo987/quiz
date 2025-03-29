@@ -2,8 +2,18 @@
 
 const int MaxCountOfAttempts = 3;
 const int QuestionsCount = 3;
+
+List<string> CorrectAnswers =
+        [
+            "Good Job",
+            "Well done",
+            "Correct",
+            "That's right"
+        ];
+
 List<Question> questions = GetQuestions();
-Console.WriteLine($"Welcome to Quiz. There will be {QuestionsCount} questions. Try to answer them");
+Console.WriteLine($"Welcome to Quiz. There'll be {QuestionsCount} questions. Try to answer them");
+
 for (int i = 1; i <= QuestionsCount; i++)
 {
     Question randomQuestion = GetRandomQuestion(questions);
@@ -22,16 +32,17 @@ Console.WriteLine("GAME OVER");
 
 static void AskQuestion(string question, int number)
 {
-    Console.WriteLine($"Question {number}");
+    Console.WriteLine($"Question #{number}:");
     Console.WriteLine(question);
 }
 
-static bool CheckAnswer(Question randomQuestion, string userAnswer, int attempsRemain)
+bool CheckAnswer(Question randomQuestion, string userAnswer, int attempsRemain)
 {
     if (userAnswer == randomQuestion.Answer)
     {
-        Console.WriteLine("That's right!");
+        ConsoleWritePositiveAnswer();
         return true;
+
     }
     else
     {
@@ -57,10 +68,26 @@ static List<Question> GetQuestions()
 };
 }
 
+
+
 static Question GetRandomQuestion(List<Question> questions)
 {
     Random random = new();
     int randomIndex = random.Next(questions.Count);
     Question randomQuestion = questions[randomIndex];
     return randomQuestion;
+}
+
+void ConsoleWritePositiveAnswer()
+{
+    var correctAnswer = GetRandomAnswer();
+    Console.WriteLine(correctAnswer);
+}
+
+string GetRandomAnswer()
+{
+    Random random = new();
+    int index = random.Next(CorrectAnswers.Count); 
+    string randomItem = CorrectAnswers[index];
+    return randomItem;
 }
