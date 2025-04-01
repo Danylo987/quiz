@@ -1,2 +1,2 @@
 # quiz
-My first quiz console app
+My First Quiz Console Application
